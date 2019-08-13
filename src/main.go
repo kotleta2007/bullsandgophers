@@ -3,9 +3,15 @@ package main
 import (
 	"fmt"
     "math/rand"
+    "time"
 )
 
 func genRand() (r[4] int) {
+    // Seeding the RNG from Unix time
+    source := rand.NewSource(time.Now().UnixNano())
+    seed := rand.New(source)
+    rand.Seed(seed.Int63())
+    
     digits := [...] int {0,1,2,3,4,5,6,7,8,9}
     
     rand.Shuffle(len(digits), func(i, j int) {
