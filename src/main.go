@@ -1,9 +1,10 @@
 package main
 
 import (
-	"fmt"
+    "fmt"
     "math/rand"
     "time"
+    "errors"
 )
 
 func genRand() (r[4] int) {
@@ -23,8 +24,49 @@ func genRand() (r[4] int) {
     return
 }
 
-func main() {
-	// TODO: Generate random 4-digit number (no repetitions allowed)
+func strToArray(str string) (arr[] int, err error) {
+    if len(str) != 4 {
+        return nil, errors.New("Invalid string size") 
+    }
     
-    fmt.Println(genRand())
+    for i := 0; i < len(str); i++ {
+        arr = append(arr, int(str[i]) - 48)
+    }
+    
+    return
+}
+
+func countBulls(arr1[4] int, arr2[4] int) (int) {
+    res := 0
+    
+    for i := 0; i < 4; i++ {
+        if arr1[i] == arr2[i] {
+            res++
+        }
+    }
+    
+    return res
+}
+
+func countCows(arr1[4] int, arr2[4] int) (int) {
+    res := -countBulls(arr1, arr2)
+    
+    for i := 0; i < 4; i++ {
+        for j := 0; j < 4; j++ {
+            if arr1[i] == arr2[j] {
+                res++
+            }
+        }
+    }
+    
+    return res
+}
+
+func main() {    
+    a := [...] int {1, 2, 3, 4}
+    b := [...] int {1, 2, 4, 7}
+    
+    fmt.Println("Cows:", countCows(a, b))
+    fmt.Println("Bulls:", countBulls(a, b))
+    // fmt.Println(genRand())
 }
